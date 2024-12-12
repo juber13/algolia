@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body{
+     font-family: Verdana, Geneva, sans-serif;
+}
+
+button[type="submit"] {
+  background-color: #FF742B !important;
+  color: #fff !important;
+}
