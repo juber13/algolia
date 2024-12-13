@@ -1,8 +1,36 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react'
 import { BiSearch ,  } from 'react-icons/bi';
 import { CiSettings } from "react-icons/ci";
+import { useDispatch} from 'react-redux';
+
+import { setStories } from '../store/storySlice';
 
 const Header = () => {
+  const [userData] = useState(JSON.parse(localStorage.getItem("userInfo")) || "");
+  const [inputVal , setInputVal] = useState("");
+  const dispatch = useDispatch();
+
+  const fetchData = async () => {
+    try {
+    const res = await fetch(`https://hn.algolia.com/api/v1/search?query=${inputVal}`);
+    const data = await res.json();
+    dispatch(setStories(data.hits));
+    }catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if(inputVal !== ""){
+        fetchData();
+      }
+    }, 500);
+
+    return () => clearTimeout(debounce);  
+    },[inputVal])
+
   return (
     <div className='header bg-[#FF742B] p-2 grid grid-cols-12 gap-4 items-center max-w-6xl m-auto'>
       <div className='left flex items-center col-span-2 gap-2'>
@@ -14,9 +42,7 @@ const Header = () => {
           />
         </div>
         <div className='userName m-0 leading-none text-md font-[400]'>
-          Search
-          <br />
-          Hacker News
+           {userData?.name.split(" ").map((ch) => ch.charAt(0).toUpperCase() + ch.slice(1)).join(" ")}
         </div>
       </div>
 
@@ -28,6 +54,8 @@ const Header = () => {
               type='text'
               className='w-full placeholder:text-[#757575] max-w-xl outline-none'
               placeholder='Search stories by title, url or author'
+              onChange={(e) => setInputVal(e.target.value)}
+              value={inputVal}
             />
           </div>
 

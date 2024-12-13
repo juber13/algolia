@@ -9,7 +9,7 @@ const DropDowns = ({ data, text, setQueryFn}) => {
   return (
     <ul className='flex'>
       <li className='flex relative'>
-        <li
+        <span
           className='border-2 text-gray-800 h-7 flex items-center cursor-pointer justify-between p-1 px-2 gap-2 text-xs relative'
           onClick={() => setShowDropdown(!showDroppdown)}
         >
@@ -19,7 +19,7 @@ const DropDowns = ({ data, text, setQueryFn}) => {
           ) : (
             <RxCaretDown className='text-xl' />
           )}
-        </li>
+        </span>
         <ul
           className={`absolute transition-all duration-100  left-0 w-[100px] ${
             showDroppdown

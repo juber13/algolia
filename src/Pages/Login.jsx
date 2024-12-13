@@ -38,16 +38,16 @@ const Login = () => {
 
 
   return (
-    <div className='container mt-5 p-4 col-lg-3 col-md-6 col-sm-8 col-11 mx-auto bg-white rounded shadow'>
-      <h2 className='text-center display-4 mb-4 text-dark'>Login</h2>
+    <div className='container m-auto mt-10 bg-white rounded shadow p-10 max-w-md'>
+      <h2 className='text-center text-5xl font-serif'>Login</h2>
       <form className='mb-3' onSubmit={handleLogin}>
-        <div className='mb-3'>
-          <label htmlFor='email' className='form-label font-weight-bold'>
+        <div className='mb-3 flex flex-col'>
+          <label htmlFor='email' className='form-label font-weight-bold text-sm'>
             Email
           </label>
           <input
             type='email'
-            className='form-control'
+            className='border border-gray-300 rounded-md p-2 outline-none focus:border-blue-500 placeholder:text-sm focus:shadow-md'
             id='email'
             name='email'
             placeholder='Enter your email'
@@ -55,13 +55,13 @@ const Login = () => {
           />
         </div>
 
-        <div className='mb-3'>
-          <label htmlFor='password' className='form-label font-weight-bold'>
+        <div className='mb-3 flex flex-col'>
+          <label htmlFor='password' className='form-label font-weight-bold text-sm'>
             Password
           </label>
           <input
             type='password'
-            className='form-control'
+            className='border border-gray-300 rounded-md p-2 outline-none focus:border-blue-500 placeholder:text-sm focus:shadow-md'
             id='password'
             name='password'
             onChange={handleChange}
@@ -69,11 +69,11 @@ const Login = () => {
           />
         </div>
         <div>
-          <p>
-            Don't have an account? <Link to='/register'>Register</Link>
+          <p className="text-xs">
+            Don't have an account? <Link to='/register' className="text-xs text-blue-500 font-extrabold">Register</Link>
           </p>
         </div>
-        <button type='submit' className='btn w-100 hover:bg-orange-500'>
+        <button type='submit' className='btn w-100 hover:bg-orange-500 p-2 px-4 rounded-md text-sm mt-3'>
           Login
         </button>
       </form>

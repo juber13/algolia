@@ -4,11 +4,10 @@ import React, { useState } from 'react'
 import DropDowns from './DropDowns';
 
 
-const Filters = ({ setQuery, query , query2, setQuery2}) => {
+const Filters = ({ setQuery, query, query2, setQuery2, setPopularity }) => {
   const [searchValueArr] = useState([
     "all",
     "story",
-    "comment",
     "ask_hn",
     "show_hn",
     "launch_hn",
@@ -36,7 +35,6 @@ const Filters = ({ setQuery, query , query2, setQuery2}) => {
           Search
         </label>
         <DropDowns
-          //   text={searchValue}
           data={searchValueArr}
           setQueryFn={setQuery}
           text={query}
@@ -47,7 +45,7 @@ const Filters = ({ setQuery, query , query2, setQuery2}) => {
         <label htmlFor='' className='text-xs'>
           By
         </label>
-        <DropDowns text={by} data={byArr} />
+        <DropDowns text={by} data={byArr} setQueryFn={setPopularity} />
       </div>
 
       <div className='flex items-center gap-1'>
