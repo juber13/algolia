@@ -139,7 +139,7 @@ export const Home = () => {
               )}
               {item?.story_text && (
                 <div className='story-text text-[11px] font-[400] flex gap-1 mb-2 flex-col mt-2 ml-2'>
-                  {item?.story_text.split(/<[pa][^>]*>/).map((line, index) => (
+                  {item?.story_text?.split(/<[pa][^>]*>/).map((line, index) => (
                     <p
                       key={index}
                       className='text-wrap max-w-[99%] overflow-x-hidden'
