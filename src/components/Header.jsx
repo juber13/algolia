@@ -31,6 +31,10 @@ const Header = () => {
     return () => clearTimeout(debounce);  
     },[inputVal])
 
+    if(!userData){
+      return;
+    }
+
   return (
     <div className='header bg-[#FF742B] p-2 grid grid-cols-12 gap-4 items-center max-w-6xl m-auto'>
       <div className='left flex items-center col-span-2 gap-2'>

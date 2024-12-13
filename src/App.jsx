@@ -1,37 +1,59 @@
-import { useEffect } from 'react'
+import { lazy, useEffect } from 'react'
 import './App.css'
 import axios from 'axios';
-import Login from './Pages/Login';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Register from './Pages/Register';
+const Login = lazy(() => import('./Pages/Login'));
+const Register = lazy(() => import('./Pages/Register'));
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Home } from './Pages/Home';
 import { ToastContainer } from 'react-toastify';
-  import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
+import { Suspense } from 'react';
+import Layout from './components/Layout';
+import ProtectRoute from './components/ProtectRoute';
 
 function App() {
+  
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: (
+          <ProtectRoute>
+            <Home />
+          </ProtectRoute>
+        ),
+      },
 
-  const fetchData = async() => {
-     try {
-      const response = await axios.get("https://hn.algolia.com/api");
-     } catch (error) {
-      console.log(error)
-     }
-  }
+      {
+        path: "/login",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Login />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/register",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Register />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+]);
 
-  useEffect(() => {
-     fetchData()
-  },[])
 
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
-      </Routes>
+     <>
+      <RouterProvider router={router} />
       <ToastContainer />
-    </BrowserRouter>
+    </>
   )
 }
 
