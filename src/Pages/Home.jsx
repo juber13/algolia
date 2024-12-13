@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
-import Header from "../components/Header";
 import Filters from "../components/Filters";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../components/Pagination";
-import Footer from "../components/Footer";
 import { setStories } from "../store/storySlice";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 export const Home = () => {
   const {stories , currentPage , currentPage2} = useSelector((state) => state.story);
@@ -65,6 +65,8 @@ export const Home = () => {
 
   return (
     <div className='bg-black h-auto'>
+
+      <Header/>
       <div className='container m-auto bg-[#F6F6EF] max-w-6xl h-auto min-h-screen pb-3'>
         <div className='content p-2'>
           <Filters
@@ -159,7 +161,8 @@ export const Home = () => {
           />
         </div>
       </div>
-      <Footer />
+
+      <Footer/>
     </div>
   );
 };

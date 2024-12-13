@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Home } from './Pages/Home';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { Suspense } from 'react';
 import Layout from './components/Layout';
 import ProtectRoute from './components/ProtectRoute';
 
@@ -30,17 +29,13 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
             <Login />
-          </Suspense>
         ),
       },
       {
         path: "/register",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
             <Register />
-          </Suspense>
         ),
       },
     ],

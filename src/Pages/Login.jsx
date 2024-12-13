@@ -9,6 +9,7 @@ const Login = () => {
      
      const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")) || null);
      const [userData , setUserData] = useState({ email: "",password: ""});
+     const [loggedIn, setLoggedIn] = useState(false);
 
      console.log(userInfo);
      const navigate = useNavigate();
@@ -21,6 +22,12 @@ const Login = () => {
      const handleLogin = (e) => {
         e.preventDefault();
 
+        if(userInfo == null){
+          toast.error("Please register first");
+            return;
+        }
+
+
         if(!userData.email || !userData.password){
             toast.error("Email or password is required");
             return;
@@ -28,6 +35,8 @@ const Login = () => {
 
         if(userData.email === userInfo.email && userData.password === userInfo.password){
             toast.success("Login Successfully");
+            setLoggedIn(true);
+            localStorage.setItem("isAuthenticated", true);
             navigate("/");
         }
         else{
