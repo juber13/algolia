@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import DropDowns from './DropDowns';
 
 
-const Filters = ({ setQuery, query, query2, setQuery2, setPopularity }) => {
+const Filters = ({ setQuery, query, query2, setQuery2}) => {
   const [searchValueArr] = useState([
     "all",
     "story",
@@ -29,7 +29,7 @@ const Filters = ({ setQuery, query, query2, setQuery2, setPopularity }) => {
   const [searchByTime, setSearchByTime] = useState(searchByTimeArr[0]);
 
   return (
-    <div className='filters flex max-w-6xl mx-auto gap-2'>
+    <div className='filters flex flex-wrap max-w-6xl mx-auto gap-2'>
       <div className='flex items-center gap-1'>
         <label htmlFor='' className='text-xs'>
           Search
@@ -45,7 +45,7 @@ const Filters = ({ setQuery, query, query2, setQuery2, setPopularity }) => {
         <label htmlFor='' className='text-xs'>
           By
         </label>
-        <DropDowns text={by} data={byArr} setQueryFn={setPopularity} />
+        <DropDowns text={by} data={byArr} />
       </div>
 
       <div className='flex items-center gap-1'>

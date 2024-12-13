@@ -18,12 +18,6 @@ export const Home = () => {
   const dispatch = useDispatch();
   const [data , setData] = useState([]);
 
-  const [sortBy, setSortBy] = useState("all");
-
-
- 
-
-
   const fetchData = async (url) => {
     if (!url) return; 
     setLoading(true);
@@ -69,13 +63,9 @@ export const Home = () => {
   };
 
 
-
-
-
-
   return (
     <div className='bg-black h-auto'>
-      <div className='container m-auto bg-[#F6F6EF] max-w-6xl h-auto min-h-screen pb-3'>
+      <div className='container m-auto bg-[#F6F6EF] max-w-6xl h-auto min-h-screen pb-3 pr-3'>
         <Header />
         <div className='content p-2'>
           <Filters
@@ -83,7 +73,6 @@ export const Home = () => {
             query={tag}
             query2={time}
             setQuery2={setTime}
-            setPopularity={setSortBy}
           />
         </div>
         <div className='stories'>
@@ -91,7 +80,7 @@ export const Home = () => {
           {/* {error && <p>Error: {error.message}</p>} */}
           {stories?.map((item) => (
             <div key={item?.objectID} className='px-4'>
-              <div className='flex gap-1 story-title items-center'>
+              <div className='flex gap-1 flex-wrap  story-title items-center'>
                 <a
                   href={`https://news.ycombinator.com/item?id=${item?.objectID}`}
                   target='_blank'
@@ -104,7 +93,7 @@ export const Home = () => {
                 {item?.url && (
                   <a
                     href={item?.url}
-                    className='text-xs text-gray-500'
+                    className='text-xs text-gray-500 text-wrap max-w[90%]'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
@@ -150,8 +139,13 @@ export const Home = () => {
               )}
               {item?.story_text && (
                 <div className='story-text text-[11px] font-[400] flex gap-1 mb-2 flex-col mt-2 ml-2'>
-                  {item?.story_text.split("<p>").map((line, index) => (
-                    <p key={index}>{line}</p>
+                  {item?.story_text.split(/<[pa][^>]*>/).map((line, index) => (
+                    <p
+                      key={index}
+                      className='text-wrap max-w-[99%] overflow-x-hidden'
+                    >
+                      {line}
+                    </p>
                   ))}
                 </div>
               )}

@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
   return (
     <div className='bg-[#000] p-8'>
-      <ul className='flex text-white text-xs justify-center gap-4'>
+      <ul className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 text-white text-xs gap-4 place-items-center'>
         <li>About</li>
         <li>Setting </li>
         <li>Help </li>
@@ -12,7 +12,7 @@ const Footer = () => {
         <li>Fork/Contribute </li>
         <li>Cool Apps</li>
       </ul>
-    </div>
+    </div>  
   );
 }
 
