@@ -66,7 +66,6 @@ export const Home = () => {
   return (
     <div className='bg-black h-auto'>
       <div className='container m-auto bg-[#F6F6EF] max-w-6xl h-auto min-h-screen pb-3'>
-        <Header />
         <div className='content p-2'>
           <Filters
             setQuery={setTag}
