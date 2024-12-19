@@ -20,7 +20,6 @@ const Pagination = ({
       )}
       {slicedArr.map((item, index) => (
         <button
-          // style={{ backgroundColor: item - 1 === currentPage ? "" : "" }}
           className={`${
             item - 1 === currentPage
               ? "border border-orange-400 text-orange-600"

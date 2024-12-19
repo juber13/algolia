@@ -1,6 +1,5 @@
-import { lazy, useEffect } from 'react'
+import { lazy} from 'react'
 import './App.css'
-import axios from 'axios';
 const Login = lazy(() => import('./Pages/Login'));
 const Register = lazy(() => import('./Pages/Register'));
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -25,16 +24,6 @@ const router = createBrowserRouter([
           </ProtectRoute>
         ),
       },
-
-      {
-        path: "/:id",
-        element: (
-          <ProtectRoute>
-            <Home />
-          </ProtectRoute>
-        ),
-      },
-
       {
         path: "/login",
         element: <Login />,

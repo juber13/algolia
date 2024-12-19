@@ -2,14 +2,12 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-// import Loader from "../components/Loader";
-// import Cookies from 'js-cookie'
+
 
 const Login = () => {
      
-     const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")) || null);
+     const [userInfo] = useState(JSON.parse(localStorage.getItem("userInfo")) || null);
      const [userData , setUserData] = useState({ email: "",password: ""});
-     const [loggedIn, setLoggedIn] = useState(false);
 
      console.log(userInfo);
      const navigate = useNavigate();
@@ -35,7 +33,6 @@ const Login = () => {
 
         if(userData.email === userInfo.email && userData.password === userInfo.password){
             toast.success("Login Successfully");
-            setLoggedIn(true);
             localStorage.setItem("isAuthenticated", true);
             navigate("/");
         }

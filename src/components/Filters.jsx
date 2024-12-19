@@ -24,7 +24,6 @@ const Filters = ({handleDropDown , type , sortBy , dateRange}) => {
     "past_year",
   ]);
 
-  // const [searchValue , setSearchValue] = useState(query);
   const [by, setBy] = useState(byArr[0]);
   const [searchByTime, setSearchByTime] = useState(searchByTimeArr[0]);
 
