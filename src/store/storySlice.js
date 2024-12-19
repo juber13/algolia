@@ -5,8 +5,8 @@ const storySlice = createSlice({
     initialState: {
         stories: [],
         passedStories: [],
-        currentPage: 1,
-        currentPage2: 1,    
+        currentPage: 0,
+        currentPage2: 0,    
         currentPageStories: [],
     },
     reducers: {

@@ -4,24 +4,24 @@ import React, { useState } from 'react'
 import DropDowns from './DropDowns';
 
 
-const Filters = ({ setQuery, query, query2, setQuery2}) => {
+const Filters = ({handleDropDown , type , sortBy , dateRange}) => {
   const [searchValueArr] = useState([
     "all",
     "story",
+    "comment",
     "ask_hn",
     "show_hn",
     "launch_hn",
     "job",
     "poll",
   ]);
-  const [byArr] = useState(["Popularity", "Date"]);
+  const [byArr] = useState(["popularity", "date"]);
   const [searchByTimeArr] = useState([
-    "all",
+    "all_time",
     "last_24",
     "past_week",
     "past_month",
     "past_Year",
-    "Custom Range",
   ]);
 
   // const [searchValue , setSearchValue] = useState(query);
@@ -35,9 +35,10 @@ const Filters = ({ setQuery, query, query2, setQuery2}) => {
           Search
         </label>
         <DropDowns
+          handleDropDown={handleDropDown}
           data={searchValueArr}
-          setQueryFn={setQuery}
-          text={query}
+          text={type}
+          searchType={"search"}
         />
       </div>
 
@@ -45,7 +46,12 @@ const Filters = ({ setQuery, query, query2, setQuery2}) => {
         <label htmlFor='' className='text-xs'>
           By
         </label>
-        <DropDowns text={by} data={byArr} />
+        <DropDowns
+          handleDropDown={handleDropDown}
+          data={byArr}
+          text={sortBy}
+          searchType={"sortBy"}
+        />
       </div>
 
       <div className='flex items-center gap-1'>
@@ -53,9 +59,10 @@ const Filters = ({ setQuery, query, query2, setQuery2}) => {
           for
         </label>
         <DropDowns
-          text={query2}
+          handleDropDown={handleDropDown}
           data={searchByTimeArr}
-          setQueryFn={setQuery2}
+          text={dateRange}
+          searchType={"for"}
         />
       </div>
     </div>

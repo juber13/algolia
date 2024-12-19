@@ -1,35 +1,12 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { BiSearch ,  } from 'react-icons/bi';
 import { CiSettings } from "react-icons/ci";
-import { useDispatch} from 'react-redux';
 
-import { setStories } from '../store/storySlice';
 
-const Header = () => {
+const Header = ({ query, setQuery }) => {
   const [userData] = useState(JSON.parse(localStorage.getItem("userInfo")) || "");
-  const [inputVal , setInputVal] = useState("");
-  const dispatch = useDispatch();
-
-  const fetchData = async () => {
-    try {
-    const res = await fetch(`https://hn.algolia.com/api/v1/search?query=${inputVal}`);
-    const data = await res.json();
-    dispatch(setStories(data.hits));
-    }catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      if(inputVal !== ""){
-        fetchData();
-      }
-    }, 500);
-
-    return () => clearTimeout(debounce);  
-    },[inputVal])
 
     if(!userData){
       return;
@@ -62,12 +39,12 @@ const Header = () => {
                 type='text'
                 className='w-full placeholder:text-[#757575] max-w-xl outline-none'
                 placeholder='Search stories by title, url or author'
-                onChange={(e) => setInputVal(e.target.value)}
-                value={inputVal}
+                onChange={(e) => setQuery(e.target.value)}
+                value={query}
               />
             </div>
 
-            <div className='flex gap-2 items-center'>
+            <div className='md:flex gap-2 items-center hidden'>
               <p className='text-[11px] text-gray-400 font-[300]'>Search by</p>
               <img
                 src='https://hn.algolia.com/public/38a9c67b12016b52267071c530ff2e78.svg'
