@@ -21,7 +21,7 @@ const Filters = ({handleDropDown , type , sortBy , dateRange}) => {
     "last_24",
     "past_week",
     "past_month",
-    "past_Year",
+    "past_year",
   ]);
 
   // const [searchValue , setSearchValue] = useState(query);

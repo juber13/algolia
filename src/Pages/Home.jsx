@@ -12,25 +12,31 @@ import { useParams , useLocation , useNavigate } from "react-router-dom";
 export const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const urlSearch = new URLSearchParams();
+  const urlSearch = new URLSearchParams(location.search);
 
-  console.log(urlSearch)
+  console.log(urlSearch);
 
   const [loading, setLoading] = useState(true);
-  const [query, setQuery] = useState("");
-  const [type, setType] = useState("story");
-  const [sortBy, setSortBy] = useState("");
-  const [dateRange, setDateRange] = useState("all_time");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [query, setQuery] = useState(urlSearch.get("query") || "");
+  const [type, setType] = useState(urlSearch.get("type") || "story");
+  const [sortBy, setSortBy] = useState(urlSearch.get("sortBy") || "");
+  const [dateRange, setDateRange] = useState(urlSearch.get("dateRange") || "all_time");
+  const [currentPage, setCurrentPage] = useState(parseInt(urlSearch.get("page")) || 0);
   const [data, setData] = useState([]);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(5);
   const [selectedType, setSelectedType] = useState("search");
 
-  const url = `https://hn.algolia.com/api/v1/${selectedType === "search" ? "search" : "search_by_date"}?page=${currentPage}&query=${query}&tags=${`(${type})`}` +
-              (selectedType !== "search" ? `&numericFilters=${dateRange === "" ? "points" : "created_at_i"}>=${getCreatedAtIFromText(dateRange || sortBy)}` : "");
-  
+  const url = `https://hn.algolia.com/api/v1/${
+    selectedType === "search" ? "search" : "search_by_date"
+  }?page=${currentPage}&query=${query}&tags=${`(${type})`}` +
+    (selectedType !== "search"
+      ? `&numericFilters=${dateRange === "" ? "points" : "created_at_i"}>=${getCreatedAtIFromText(
+          dateRange || sortBy
+        )}`
+      : "");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,25 +49,32 @@ export const Home = () => {
         console.log(res);
 
         setNumberOfPages(res.nbPages);
-        console.log("result gailt")
+        console.log("result gailt");
         setData(res.hits || []); // Ensure hits is an array
-          navigate(`/?query=${query}&type=${type}&sortBy=${sortBy}&dateRange=${dateRange}&page=${currentPage + 1}`);
-        // navigate(`/${searchBar}`)
+
+        // Update the window location when the API call is successful
+        navigate(
+          `/?query=${query}&type=${type}&sortBy=${sortBy}&dateRange=${dateRange}&page=${currentPage}`,
+          { replace: true }
+        );
       } catch (error) {
         console.error("Fetch error:", error);
         setData([]); // Reset data on error
-      }finally{
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
-  }, [type, currentPage, dateRange , sortBy , query]); // Ensure dateRange is included in dependencies
+  }, [type, currentPage, dateRange, sortBy, query, url]);
+
+  // Remove the second useEffect that was causing the infinite loop
+  // The URL parameters will be handled by the navigation in the first useEffect
 
 
 
-   const arr = Array.from({ length: numberOfPages }, (_, i) => i + 1);
-   const slicedArr = arr.slice(startIndex, endIndex);
 
+    
+  
   
    function getCreatedAtIFromText(inputText) {
     console.log(inputText)
@@ -147,6 +160,11 @@ export const Home = () => {
       return "Just now";
     }
   }
+  
+  
+
+  const arr = Array.from({ length: numberOfPages }, (_, i) => i + 1);
+  const slicedArr = arr.slice(startIndex, endIndex);
 
   const handleNext = () => {
     if (currentPage == endIndex - 1) {
@@ -166,8 +184,6 @@ export const Home = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-
-
 
   return (
     <div className='bg-black h-auto'>

@@ -39,7 +39,7 @@ const Header = ({ query, setQuery }) => {
                 type='text'
                 className='w-full placeholder:text-[#757575] max-w-xl outline-none'
                 placeholder='Search stories by title, url or author'
-                onChange={(e) => setQuery(e.target.value)}
+                onInput={(e) => setQuery(e.target.value)}
                 value={query}
               />
             </div>
